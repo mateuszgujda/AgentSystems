@@ -5,17 +5,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-//Pas sklada sie z 8353 kratek
-
+/// One lane has 8353 cells
 public class Lane {
     private final int cellNumber = 8353;
+    
+    /// Single lane with cells
     public CircularArrayList<Cell> lane;
     public int[] optionsThroughput;
+    
+    /// Indicates how many cells should exit have
     int exitLength = 40;
+    
+    /// Indicates space between exit and entry
     int spaceBetweenExitAndEntry = 20;
     private int laneNumber;
     private int numberOfCarsOnLane;
     private int entryCounter = 0;
+    
+    /// Setup lane entries
     private List<Integer> BaliceWjazd = IntStream.rangeClosed(0, 40).boxed().collect(Collectors.toList());
     private List<Integer> Balice2Wjazd = IntStream.rangeClosed(192, 232).boxed().collect(Collectors.toList());
     private List<Integer> BielanyWjazd = IntStream.rangeClosed(626, 666).boxed().collect(Collectors.toList());
@@ -38,6 +45,7 @@ public class Lane {
             PoludnieWjazd, LagiewnikiWjazd, WieliczkaWjazd, BiezaznowWjazd, PrzewozWjazd, NowaHutaWjazd, GrebalowWjazd,
             MistrzejowiceWjazd, WegrzceWjazd, ZielonkiWjazd, ModlnicaWjazd, ModlniczkaWjazd);
 
+    /// Setup lane exits
     private List<Integer> BaliceWyjazd = IntStream.rangeClosed(60, 100).boxed().collect(Collectors.toList());
     private List<Integer> Balice2Wyjazd = IntStream.rangeClosed(252, 292).boxed().collect(Collectors.toList());
     private List<Integer> BielanyWyjazd = IntStream.rangeClosed(686, 726).boxed().collect(Collectors.toList());
