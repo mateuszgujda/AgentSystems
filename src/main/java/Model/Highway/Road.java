@@ -1,10 +1,11 @@
 package Model.Highway;
 
-//Jezdnia sklada sie z 3 pasow
+/// Road has 3 lanes
 
 import java.util.Random;
 
 public class Road {
+    /// List of lanes
     public Lane[] road;
     public int[] roadThroughput;
     private Random probability = new Random();
