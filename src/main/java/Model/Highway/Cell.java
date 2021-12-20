@@ -4,10 +4,18 @@ import Model.Vehicles.Vehicle;
 
 public class Cell {
 
+    /// Cell length
     public static double measure = 7.5;
+    
+    /// Indicates if cell is occupied by vehicle
     public boolean occupied;
+    
+    /// Occuping vehicle
     public Vehicle vehicle;
+    
+    /// Indicates what type of cell is it - EXIT, ENTRY, NORMAL, DISABLED
     public CellType cellType;
+    
     public Cell() {
         setOccupied(false);
     }
