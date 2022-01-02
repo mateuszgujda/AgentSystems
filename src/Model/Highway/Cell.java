@@ -9,8 +9,14 @@ public class Cell {
     }
 
     public static double measure = 7.5;
+    
+    /// Indicates if cell is occupied by vehicle
     public boolean occupied;
+    
+    /// Occuping vehicle
     public Vehicle vehicle;
+    
+    /// Indicates what type of cell is it - EXIT, ENTRY, NORMAL, DISABLED
     public CellType cellType;
 
     public Cell() {
@@ -47,5 +53,5 @@ public class Cell {
         occupied = false;
         vehicle = null;
     }
-
 }
+

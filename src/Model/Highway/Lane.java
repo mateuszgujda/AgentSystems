@@ -1,6 +1,5 @@
 package Model.Highway;
 
-import Model.Highway.Cell.CellType;
 import Model.Settings;
 import Model.Vehicles.Car;
 import Model.Vehicles.Vehicle;
@@ -76,26 +75,26 @@ public class Lane {
     // Setup cell to entrance;
     void setupEntryOneWay() {
         for (Integer point : Entries) {
-            lane.get(point).cellType = CellType.ENTRY;
+            lane.get(point).cellType = Cell.CellType.ENTRY;
         }
     }
 
     // Setup cell to exit
     void setupExitOneWay() {
         for (Integer point : Exits) {
-            lane.get(point).cellType = CellType.EXIT;
+            lane.get(point).cellType = Cell.CellType.EXIT;
         }
     }
 
     void setupEntryOtherWay() {
         for (Integer point : Exits) {
-            lane.get(point).cellType = CellType.ENTRY;
+            lane.get(point).cellType = Cell.CellType.ENTRY;
         }
     }
 
     void setupExitOtherWay() {
         for (Integer point : Entries) {
-            lane.get(point).cellType = CellType.EXIT;
+            lane.get(point).cellType = Cell.CellType.EXIT;
         }
     }
 
@@ -106,14 +105,14 @@ public class Lane {
             } else if (Exits.contains(i)) {
                 continue;
             } else {
-                lane.get(i).cellType = CellType.DISABLED;
+                lane.get(i).cellType = Cell.CellType.DISABLED;
             }
         }
     }
 
     void setupNormal() {
         for (int i = 0; i < cellNumber; i++) {
-            lane.get(i).cellType = CellType.NORMAL;
+            lane.get(i).cellType = Cell.CellType.NORMAL;
         }
     }
 
@@ -197,7 +196,7 @@ public class Lane {
                     nextFrameLane.get((currentCellVehicle.getVelocity() + i) - lane.size()).occupyCell(currentCellVehicle);
                 } else {
                     nextFrameLane.get(i + currentCellVehicle.getVelocity()).occupyCell(currentCellVehicle);
-                    if (nextFrameLane.get(i + currentCellVehicle.getVelocity()).cellType == CellType.DISABLED) {
+                    if (nextFrameLane.get(i + currentCellVehicle.getVelocity()).cellType == Cell.CellType.DISABLED) {
                         nextFrameLane.get(i + currentCellVehicle.getVelocity()).freeCell();
                     }
                 }
@@ -212,7 +211,7 @@ public class Lane {
         Random probability = new Random();
         for (int i = 0; i < cellNumber; i++) {
 
-            if (lane.get(i).cellType == CellType.ENTRY) {
+            if (lane.get(i).cellType == Cell.CellType.ENTRY) {
                 if (!lane.get(i).occupied) {
 
                     if (probability.nextInt(61) - roadThroughput[entryCounter] < 0 && !lane.get(i).occupied) {
