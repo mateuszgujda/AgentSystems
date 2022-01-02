@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/as.iml" filepath="$PROJECT_DIR$/.idea/modules/as.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/as_main.iml" filepath="$PROJECT_DIR$/.idea/modules/as_main.iml" group="as" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/as_test.iml" filepath="$PROJECT_DIR$/.idea/modules/as_test.iml" group="as" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/AgentSystems.iml" filepath="$PROJECT_DIR$/.idea/AgentSystems.iml" />
     </modules>
   </component>
 </project>

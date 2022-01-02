@@ -4,10 +4,15 @@ import Model.Vehicles.Vehicle;
 
 public class Cell {
 
+    public enum CellType {
+        EXIT, ENTRY, NORMAL, DISABLED
+    }
+
     public static double measure = 7.5;
     public boolean occupied;
     public Vehicle vehicle;
     public CellType cellType;
+
     public Cell() {
         setOccupied(false);
     }
@@ -41,10 +46,6 @@ public class Cell {
     public void freeCell() {
         occupied = false;
         vehicle = null;
-    }
-
-    public enum CellType {
-        EXIT, ENTRY, NORMAL, DISABLED
     }
 
 }

@@ -8,4 +8,5 @@ public class Car extends Vehicle {
         this.velocity = velocity;
         this.numberOfExits = numberOfExits;
     }
+
 }
