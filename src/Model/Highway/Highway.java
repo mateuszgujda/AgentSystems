@@ -9,13 +9,13 @@ import java.util.List;
 
 public class Highway {
     public static List<Integer> carsOnSegment = new ArrayList<>(Collections.nCopies(17, 0));
-    
+
     /// Initiate lengths of segments
     public static List<Integer> segmentsLen = Arrays.asList(191, 434, 371, 481, 611, 271, 776, 454, 345, 413, 532, 612, 666, 626, 665, 306, 599);
-    
+
     /// Empty list of segment start cell numbers
     public static ArrayList<Integer> startOfSegments = new ArrayList<>(Collections.nCopies(17, 0));
-    
+
     /// List of segment names
     public static String[] segmentsNames = {"Balice", "Balice2", "Modlniczka", "Modlnica", "Zielonki", "Węgrzce", "Kr. Mistrzejowice", "Kr. Grębałów", "Kr. Nowa Huta", "Kr. Przewóz", "Kr. Bieżanów", "Kr. Wieliczka", "Kr. Łagiewniki", "Kr. Południe", "Kr. Skawina", "Kr. Tyniec", "Kr. Bielany"};
 
@@ -23,7 +23,7 @@ public class Highway {
 
     /// Roads on highway
     public Road[] roads;
-    
+
     /// Number of all segments
     private int numberOfSegments = 17;
 
@@ -32,6 +32,12 @@ public class Highway {
         for (int i = 0; i < highwayWidth; i++) roads[i] = new Road(3);
         setupSegments();
         setupSegmentsStarts();
+    }
+
+    public static void resetNumbersOfCarOnSegments() {
+        for (int number = 0; number < carsOnSegment.size(); ++number) {
+            carsOnSegment.set(number, 0);
+        }
     }
 
     public void setupHighway() {
@@ -61,12 +67,6 @@ public class Highway {
     private void setupSegmentsStarts() {
         for (int i = 1; i < segmentsLen.size(); ++i) {
             startOfSegments.set(i, startOfSegments.get(i - 1) + segmentsLen.get(i - 1));
-        }
-    }
-
-    public static void resetNumbersOfCarOnSegments() {
-        for (int number = 0; number < carsOnSegment.size(); ++number) {
-            carsOnSegment.set(number, 0);
         }
     }
 }

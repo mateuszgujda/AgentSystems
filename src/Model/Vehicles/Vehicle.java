@@ -5,18 +5,17 @@ import Model.Highway.Cell;
 import java.util.Random;
 
 public class Vehicle {
-    int velocity;
     public Cell[][] neighbourhood;
     public int maxVelocity;
-    private int distanceToNextCarInFront = 0;
-    private int distanceToNextCarInBack = 0;
-    private boolean hasChangedLane = false;
     public boolean hasEntered = false;
     public boolean disabled = false;
     public int numberOfExits;
-    private int numberOfCellsToPass = 40;
     public int numberOfCellsToOvertake = 0;
-
+    int velocity;
+    private int distanceToNextCarInFront = 0;
+    private int distanceToNextCarInBack = 0;
+    private boolean hasChangedLane = false;
+    private int numberOfCellsToPass = 40;
     private LaneToChange laneToChange = LaneToChange.NONE;
 
 
@@ -54,6 +53,16 @@ public class Vehicle {
         return null;
     }
 
+    public boolean checkNeighbourhoodToChangeLane(int roadIndex) {
+        int myNextPosition = this.maxVelocity + neighbourhood[roadIndex].length / 2;
+        for (int i = 0; i < neighbourhood[roadIndex].length; i++) {
+            if (neighbourhood[roadIndex][i].occupied) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private Vehicle calculateDistanceToNextBackVehicle(int roadIndex) {
         for (int i = maxVelocity, j = 1; i >= 0; i--) {
             if (!neighbourhood[roadIndex][i].occupied) {
@@ -73,53 +82,30 @@ public class Vehicle {
             laneToChange = LaneToChange.NONE;
             return;
         }
-        Vehicle vehicleInBackOnRight = calculateDistanceToNextBackVehicle(roadIndex + 1);
-        Vehicle inFront = calculateDistanceToNextFrontVehicle(roadIndex + 1);
-        if (vehicleInBackOnRight != null) {
-            if (velocity > vehicleInBackOnRight.velocity) {
-                if(inFront != null) {
-                    if(distanceToNextCarInFront + inFront.velocity - velocity != 0) {
-                        laneToChange = LaneToChange.RIGHT;
-                    } else {
-                        laneToChange = LaneToChange.NONE;
-                    }
-                } else {
-                    laneToChange = LaneToChange.RIGHT;
-                }
-            } else {
-                laneToChange = LaneToChange.NONE;
-            }
-        } else {
+
+        boolean canChangeLane = checkNeighbourhoodToChangeLane(roadIndex + 1);
+        if (canChangeLane) {
             laneToChange = LaneToChange.RIGHT;
+        } else {
+            laneToChange = LaneToChange.NONE;
         }
     }
 
 
     public void decideAboutChangeLaneToLeft(int roadIndex) {
-        if (roadIndex == 0) {
+        if (roadIndex == 0 || roadIndex == 2) {
             laneToChange = LaneToChange.NONE;
             return;
         }
-        Vehicle vehicleInBackOnLeft = calculateDistanceToNextBackVehicle(roadIndex - 1);
         Vehicle vehicleInFront = calculateDistanceToNextFrontVehicle(roadIndex);
+        boolean canChangeLane = checkNeighbourhoodToChangeLane(roadIndex - 1);
+        if (canChangeLane) {
+            laneToChange = LaneToChange.LEFT;
+        } else {
+            laneToChange = LaneToChange.NONE;
+        }
         if (vehicleInFront == null) {
             laneToChange = LaneToChange.NONE;
-        } else {
-            if (vehicleInBackOnLeft != null) {
-                laneToChange = LaneToChange.NONE;
-            } else if (vehicleInFront.velocity < velocity) {
-                Vehicle vehicleInFrontLeft = calculateDistanceToNextFrontVehicle(roadIndex - 1);
-                if(vehicleInFrontLeft == null) {
-                    laneToChange = LaneToChange.LEFT;
-                } else {
-                    if( vehicleInFrontLeft.velocity + distanceToNextCarInFront > velocity) {
-                        laneToChange = LaneToChange.LEFT;
-
-                    }else {
-                        laneToChange = LaneToChange.NONE;
-                    }
-                }
-            }
         }
     }
 
@@ -165,8 +151,8 @@ public class Vehicle {
     }
 
     public void decideAboutEnter() {
-        Vehicle vehicleInTheBack = calculateDistanceToNextBackVehicle(1);
-        if (vehicleInTheBack == null || vehicleInTheBack.velocity < velocity) {
+        boolean canEnter = checkNeighbourhoodToChangeLane(1);
+        if (canEnter) {
             laneToChange = LaneToChange.LEFT;
         } else {
             laneToChange = LaneToChange.NONE;
@@ -198,7 +184,7 @@ public class Vehicle {
                 hasEntered = false;
                 disabled = false;
             }
-            numberOfCellsToOvertake = 40;
+            numberOfCellsToOvertake = 12;
             return laneIndex - 1;
         } else if (laneToChange == LaneToChange.RIGHT) {
             neighbourhood[laneIndex][maxVelocity].freeCell();

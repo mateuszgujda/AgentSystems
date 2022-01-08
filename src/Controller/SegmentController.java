@@ -7,16 +7,12 @@ import Model.Simulation;
 import Model.Vehicles.Vehicle;
 import View.HighwayGrid;
 import javafx.animation.AnimationTimer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -33,19 +29,17 @@ public class SegmentController extends BaseController {
     public Label carDistanceToNext;
     public Label carExitsRemaining;
     public Label carMaxSpeed;
-
-
+    public ScrollPane scrollPane;
+    public ScrollPane scrollPane2;
     private int numberOfLanes;
     private int numberOfCells;
     private int segment;
     private int pickedCarHash;
-
     private HighwayGrid highwayGridOne;
     private HighwayGrid highwayGridTwo;
-    public ScrollPane scrollPane;
-    public ScrollPane scrollPane2;
     private Simulation simulation;
-
+    private GridPane gridOne;
+    private GridPane gridTwo;
     AnimationTimer h = new AnimationTimer() {
         int i = 0;
 
@@ -62,8 +56,6 @@ public class SegmentController extends BaseController {
             i += 1;
         }
     };
-    private GridPane gridOne;
-    private GridPane gridTwo;
 
     private void updateGridNumberOne() {
 

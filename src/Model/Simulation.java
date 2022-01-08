@@ -2,7 +2,6 @@ package Model;
 
 import Model.Highway.Highway;
 import Model.Vehicles.Car;
-import Model.Vehicles.Vehicle;
 
 import java.util.Random;
 

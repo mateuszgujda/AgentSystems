@@ -45,8 +45,8 @@ public class OptionsController extends BaseController implements Initializable {
     }
 
     void initSpinners() {
-        tirMaxVelocity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 3, settings.getCarMaxVelocity()));
-        carMaxVelocity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(4, 7, settings.getCarMaxUpperVelocity()));
+        tirMaxVelocity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 4, settings.getCarMaxVelocity()));
+        carMaxVelocity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(4, 8, settings.getCarMaxUpperVelocity()));
     }
 
     @Override

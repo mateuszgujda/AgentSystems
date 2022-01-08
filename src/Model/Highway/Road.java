@@ -4,15 +4,14 @@ package Model.Highway;
 
 import Model.Vehicles.Vehicle;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
 
 public class Road {
-    public Lane[] road;
     public static int[] carsPerMinute = new int[17];
-    private Random probability = new Random();
+    public Lane[] road;
     int iterCounter = 0;
+    private Random probability = new Random();
 
     Road(int roadWidth) {
         road = new Lane[roadWidth];

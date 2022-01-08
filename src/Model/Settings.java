@@ -4,11 +4,10 @@ public class Settings {
 
     public static boolean initialized = false;
     public static int carMaxUpperVelocity;
-
-    public String[] times = new String[]{"Night", "Morning", "Afternoon"};
-    private int time;
     public static int carMaxVelocity;
     public static int[] throughput = {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
+    public String[] times = new String[]{"Night", "Morning", "Afternoon"};
+    private int time;
 
     public Settings() {
         time = 2;

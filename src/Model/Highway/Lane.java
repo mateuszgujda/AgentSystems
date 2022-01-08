@@ -14,14 +14,11 @@ import java.util.stream.IntStream;
 
 public class Lane {
     public static int iterCounter = 0;
-
-    private int numberOfCarsOnLane;
-    public CircularArrayList<Cell> lane;
-    private int entryCounter = 0;
     private final int cellNumber = 8353;
+    public CircularArrayList<Cell> lane;
     public int[][] carsFlow = new int[17][60];
-
-
+    private int numberOfCarsOnLane;
+    private int entryCounter = 0;
     private List<Integer> BaliceEntry = IntStream.rangeClosed(0, 40).boxed().collect(Collectors.toList());
     private List<Integer> Balice2Entry = IntStream.rangeClosed(192, 232).boxed().collect(Collectors.toList());
     private List<Integer> BielanyEntry = IntStream.rangeClosed(626, 666).boxed().collect(Collectors.toList());
@@ -39,7 +36,9 @@ public class Lane {
     private List<Integer> ZielonkiEntry = IntStream.rangeClosed(6780, 6820).boxed().collect(Collectors.toList());
     private List<Integer> ModlnicaEntry = IntStream.rangeClosed(7446, 7486).boxed().collect(Collectors.toList());
     private List<Integer> ModlniczkaEntry = IntStream.rangeClosed(7753, 7793).boxed().collect(Collectors.toList());
-
+    List<Integer> Exits = concatenate(BaliceEntry, Balice2Entry, BielanyEntry, TyniecEntry, SkawinaEntry,
+            PoludnieEntry, LagiewnikiEntry, WieliczkaEntry, BiezaznowEntry, PrzewozEntry, NowaHutaEntry, GrebalowEntry,
+            MistrzejowiceEntry, WegrzceEntry, ZielonkiEntry, ModlnicaEntry, ModlniczkaEntry);
     private List<Integer> BaliceExit = IntStream.rangeClosed(60, 100).boxed().collect(Collectors.toList());
     private List<Integer> Balice2Exit = IntStream.rangeClosed(252, 292).boxed().collect(Collectors.toList());
     private List<Integer> BielanyExit = IntStream.rangeClosed(686, 726).boxed().collect(Collectors.toList());
@@ -57,11 +56,6 @@ public class Lane {
     private List<Integer> ZielonkiExit = IntStream.rangeClosed(6840, 6880).boxed().collect(Collectors.toList());
     private List<Integer> ModlnicaExit = IntStream.rangeClosed(7506, 7546).boxed().collect(Collectors.toList());
     private List<Integer> ModlniczkaExit = IntStream.rangeClosed(7813, 7853).boxed().collect(Collectors.toList());
-
-    List<Integer> Exits = concatenate(BaliceEntry, Balice2Entry, BielanyEntry, TyniecEntry, SkawinaEntry,
-            PoludnieEntry, LagiewnikiEntry, WieliczkaEntry, BiezaznowEntry, PrzewozEntry, NowaHutaEntry, GrebalowEntry,
-            MistrzejowiceEntry, WegrzceEntry, ZielonkiEntry, ModlnicaEntry, ModlniczkaEntry);
-
     List<Integer> Entries = concatenate(BaliceExit, Balice2Exit, BielanyExit, TyniecExit, SkawinaExit,
             PoludnieExit, LagiewnikiExit, WieliczkaExit, BiezaznowExit, PrzewozExit, NowaHutaExit,
             GrebalowExit, MistrzejowiceExit, WegrzceExit, ZielonkiExit, ModlnicaExit, ModlniczkaExit);
@@ -71,6 +65,14 @@ public class Lane {
         for (int i = 0; i < cellNumber; i++) lane.add(new Cell());
     }
 
+    public static <T> List<T> concatenate(List<T>... lists) {
+        List<T> result = new ArrayList<>();
+
+        for (List<T> l : lists)
+            result.addAll(l);
+
+        return result;
+    }
 
     // Setup cell to entrance;
     void setupEntryOneWay() {
@@ -115,16 +117,6 @@ public class Lane {
             lane.get(i).cellType = Cell.CellType.NORMAL;
         }
     }
-
-    public static <T> List<T> concatenate(List<T>... lists) {
-        List<T> result = new ArrayList<>();
-
-        for (List<T> l : lists)
-            result.addAll(l);
-
-        return result;
-    }
-
 
     void calculateNextFrame(int laneIndex) {
         for (Cell aLane : lane) {
@@ -223,7 +215,7 @@ public class Lane {
                             maxVelocity = probability.nextInt(Settings.carMaxUpperVelocity - Settings.carMaxVelocity) + Settings.carMaxVelocity + 1;
                         }
 
-                        Car toAdd = new Car(maxVelocity, probability.nextInt(maxVelocity - 2) + 2, probability.nextInt(6) + 1);
+                        Car toAdd = new Car(maxVelocity, probability.nextInt(maxVelocity < 3 ? maxVelocity : maxVelocity - 2) + 2, probability.nextInt(6) + 1);
                         toAdd.hasEntered = true;
                         toAdd.numberOfCellsToOvertake = 40;
                         lane.get(i).occupyCell(toAdd);
